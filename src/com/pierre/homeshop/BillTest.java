@@ -1,5 +1,7 @@
 package com.pierre.homeshop;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThrows;
+
 import org.junit.jupiter.api.Test;
 
 import com.pierre.homeshop.DeliveryType.RelayDelivery;
@@ -45,5 +47,10 @@ public class BillTest {
         bill.addProduct(tv, 1);
         bill.addProduct(fridge, 1);
         assertEquals(870.98, bill.getTotal(), 0.01);
+    }
+    @Test
+    public void Given_emptyProductList_generatingBill_Then_throwsException() {
+        Bill bill = new Bill(customer, lowCostRelayDelivery);
+        assertThrows(NoProductInBillException.class, () -> bill.generate(writerMock));
     }
 }
